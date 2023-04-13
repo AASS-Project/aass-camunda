@@ -1,4 +1,6 @@
 # AASS-Camunda
 ## Requirements
-requests
-pycamunda
+```
+pip install requests
+pip install pycamunda
+```
