@@ -6,7 +6,7 @@ import requests
 
 url = 'http://localhost:8080/engine-rest'
 worker_id = 'worker-id'
-variables = ['price', 'route', 'applied_discount']
+variables = ['customer_email', 'price', 'route_id', 'applied_discount', 'station_to', 'station_from', 'reservation']
 
 while True:
     fetch_and_lock = pycamunda.externaltask.FetchAndLock(url=url, worker_id=worker_id, max_tasks=10)
@@ -16,15 +16,20 @@ while True:
 
     for task in tasks:
         print(task.variables)
-        route = json.loads(task.variables['route'].value)
-
         ticket = {
-            'station_from': route[list(route)[0]]['station_from_id'], # list(route.values())[0]['station_from_id'],#
-            'station_to': list(route.values())[0]['station_to_id'],
-            'customer_email': "john.doe@s-chain.sk",
-            'route_id': list(route)[0]
+            'station_from': task.variables['station_from'].value,
+            'station_to': task.variables['station_to'].value,
+            'customer_email': task.variables['customer_email'].value,
+            'route_id': task.variables['route_id'].value
             , 'applied_discount': task.variables['applied_discount'].value
+
         }
+
+        print(task.variables['reservation'].value)
+
+        if task.variables['reservation'].value:
+            ticket['reservation'] = task.variables['reservation'].value
+
         print(ticket)
         response = requests.post('http://localhost:8000/filter/ticket/new', json=ticket)
         print(response.content)

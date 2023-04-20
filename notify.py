@@ -5,7 +5,7 @@ import pycamunda.externaltask
 
 url = 'http://localhost:8080/engine-rest'
 worker_id = 'worker-id'
-variables = []
+variables = ['success']
 
 while True:
     fetch_and_lock = pycamunda.externaltask.FetchAndLock(url=url, worker_id=worker_id, max_tasks=10)
@@ -14,7 +14,9 @@ while True:
     tasks = fetch_and_lock()
 
     for task in tasks:
-        url2 = 'http://localhost:8081/purchase_successful'
+        print(task.variables['success'].value)
+        url2 = 'http://localhost:8081/purchase_successful?success=' + str(task.variables['success'].value)
+
         chrome_path = 'C:/Program Files/Google/Chrome/Application/chrome.exe %s'
         webbrowser.get(chrome_path).open(url2)
 
