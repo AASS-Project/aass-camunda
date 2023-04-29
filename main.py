@@ -1,26 +1,23 @@
-import pycamunda.externaltask
+import threading
+from calc_price import *
+from create_ticket import *
+from filter import *
+from notify import *
+import os
+import socket
 
-url = 'http://localhost:8080/engine-rest'
-worker_id = 'worker-id'
-variables = ['station_from', 'station_to', 'departure_time']  # variables of the process instance
 
-fetch_and_lock = pycamunda.externaltask.FetchAndLock(url=url, worker_id=worker_id, max_tasks=10)
-fetch_and_lock.add_topic(name='filter-connections', lock_duration=10000, variables=variables)
-#fetch_and_lock.add_topic(name='calc-price', lock_duration=10000, variables=variables)
-fetch_and_lock.add_topic(name='create-ticket', lock_duration=10000, variables=variables)
-fetch_and_lock.add_topic(name='notify.py', lock_duration=10000, variables=variables)
+#url = 'http://host.docker.internal:8080/engine-rest'
 
-tasks = fetch_and_lock()
-print("tasks", tasks)
+ip_address = socket.gethostbyname(os.environ.get('CAMUNDA_HOST'))
 
-for task in tasks:
+print(ip_address)
 
-    complete = pycamunda.externaltask.Complete(url=url, id_=task.id_, worker_id=worker_id)
-    complete.add_variable(name='station_from', value="41111")  # Send this variable to the instance
-    complete.add_variable(name='station_to', value="27")  # Send this variable to the instance
-    complete.add_variable(name='departure_time', value="08:00:00")  # Send this variable to the instance
-    complete()
-#
-# fetch_and_lock.add_topic(name='calc-price', lock_duration=10000, variables=variables)
-# fetch_and_lock.add_topic(name='create-ticket', lock_duration=10000, variables=variables)
-# fetch_and_lock.add_topic(name='notify.py', lock_duration=10000, variables=variables)
+url = 'http://' + ip_address + ':' + os.environ.get('CAMUNDA_PORT') + '/engine-rest'
+
+print("HEEEEEHHHEHEEHEHEH")
+print(url)
+
+threading.Thread(target=calc_price_service, args=(url, 'worker-id')).start()
+threading.Thread(target=create_ticket_service, args=(url, 'worker-id')).start()
+threading.Thread(target=notify_service, args=(url, 'worker-id')).start()

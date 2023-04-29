@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1us13m2" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="Process_1x4026o" isExecutable="true">
+    <bpmn:startEvent id="Event_1nxyq2t">
+      <bpmn:outgoing>Flow_0tv7u9o</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_1azv6n2" name="Výpočet ceny" camunda:type="external" camunda:topic="calc-price">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0tv7u9o</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vk78j3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1522nyu" name="Vytvorenie lístka" camunda:type="external" camunda:topic="create-ticket">
+      <bpmn:incoming>Flow_1vk78j3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r0lhnz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_03ufrc8" name="Vyvolanie notifikácie" camunda:type="external" camunda:topic="notify">
+      <bpmn:incoming>Flow_0r0lhnz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pwyk76</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_17ee4q2">
+      <bpmn:incoming>Flow_0pwyk76</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0tv7u9o" sourceRef="Event_1nxyq2t" targetRef="Activity_1azv6n2" />
+    <bpmn:sequenceFlow id="Flow_1vk78j3" sourceRef="Activity_1azv6n2" targetRef="Activity_1522nyu" />
+    <bpmn:sequenceFlow id="Flow_0pwyk76" sourceRef="Activity_03ufrc8" targetRef="Event_17ee4q2" />
+    <bpmn:sequenceFlow id="Flow_0r0lhnz" sourceRef="Activity_1522nyu" targetRef="Activity_03ufrc8" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1x4026o">
+      <bpmndi:BPMNShape id="BPMNShape_0rz0q0l" bpmnElement="Event_1nxyq2t">
+        <dc:Bounds x="152" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kuvoj6_di" bpmnElement="Activity_1azv6n2">
+        <dc:Bounds x="450" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0x85pew_di" bpmnElement="Activity_1522nyu">
+        <dc:Bounds x="630" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jfboi8_di" bpmnElement="Activity_03ufrc8">
+        <dc:Bounds x="1060" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_17ee4q2_di" bpmnElement="Event_17ee4q2">
+        <dc:Bounds x="1252" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0tv7u9o_di" bpmnElement="Flow_0tv7u9o">
+        <di:waypoint x="188" y="117" />
+        <di:waypoint x="450" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vk78j3_di" bpmnElement="Flow_1vk78j3">
+        <di:waypoint x="550" y="117" />
+        <di:waypoint x="630" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pwyk76_di" bpmnElement="Flow_0pwyk76">
+        <di:waypoint x="1160" y="117" />
+        <di:waypoint x="1252" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r0lhnz_di" bpmnElement="Flow_0r0lhnz">
+        <di:waypoint x="730" y="117" />
+        <di:waypoint x="1060" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "label": "Text field",
+      "type": "textfield",
+      "id": "Field_0rzti71",
+      "key": "price"
+    },
+    {
+      "label": "I confirm that the price is right.",
+      "type": "checkbox",
+      "id": "Field_1h8mkb6",
+      "key": "success"
+    },
+    {
+      "action": "submit",
+      "label": "Submit",
+      "type": "button",
+      "id": "Field_1azwrop",
+      "key": "field_1uq524w"
+    }
+  ],
+  "type": "default",
+  "id": "Form_1pwwidc",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.9.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.18.0",
+  "schemaVersion": 7
+}
