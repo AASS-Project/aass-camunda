@@ -14,7 +14,7 @@
       <bpmn:outgoing>Flow_0r0lhnz</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_03ufrc8" name="Vyvolanie notifikácie" camunda:type="external" camunda:topic="notify">
-      <bpmn:incoming>Flow_0r0lhnz</bpmn:incoming>
+      <bpmn:incoming>Flow_1ie42kq</bpmn:incoming>
       <bpmn:outgoing>Flow_0pwyk76</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_17ee4q2">
@@ -23,7 +23,13 @@
     <bpmn:sequenceFlow id="Flow_0tv7u9o" sourceRef="Event_1nxyq2t" targetRef="Activity_1azv6n2" />
     <bpmn:sequenceFlow id="Flow_1vk78j3" sourceRef="Activity_1azv6n2" targetRef="Activity_1522nyu" />
     <bpmn:sequenceFlow id="Flow_0pwyk76" sourceRef="Activity_03ufrc8" targetRef="Event_17ee4q2" />
-    <bpmn:sequenceFlow id="Flow_0r0lhnz" sourceRef="Activity_1522nyu" targetRef="Activity_03ufrc8" />
+    <bpmn:sequenceFlow id="Flow_0r0lhnz" sourceRef="Activity_1522nyu" targetRef="Activity_1ydnnbt" />
+    <bpmn:sequenceFlow id="Flow_1ie42kq" sourceRef="Activity_1ydnnbt" targetRef="Activity_03ufrc8" />
+    <bpmn:userTask id="Activity_1ydnnbt" name="Kontrola výpočtu" camunda:formRef="Form_1pwwidc" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0r0lhnz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ie42kq</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1x4026o">
@@ -42,6 +48,10 @@
       <bpmndi:BPMNShape id="Event_17ee4q2_di" bpmnElement="Event_17ee4q2">
         <dc:Bounds x="1252" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0t3xfg2_di" bpmnElement="Activity_1ydnnbt">
+        <dc:Bounds x="840" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0tv7u9o_di" bpmnElement="Flow_0tv7u9o">
         <di:waypoint x="188" y="117" />
         <di:waypoint x="450" y="117" />
@@ -56,6 +66,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0r0lhnz_di" bpmnElement="Flow_0r0lhnz">
         <di:waypoint x="730" y="117" />
+        <di:waypoint x="840" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ie42kq_di" bpmnElement="Flow_1ie42kq">
+        <di:waypoint x="940" y="117" />
         <di:waypoint x="1060" y="117" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
