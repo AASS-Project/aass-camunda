@@ -72,7 +72,7 @@ services:
 
   web:
     build:  
-      context: ../aass-project-train-fe/.
+      context: ../aass-project-train/aass-project-train-fe/fe-camunda/.
     ports:
       - "8081:8080"
     environment:
@@ -82,8 +82,6 @@ services:
       - TICKET_PORT=8000
       - FILTER_HOST=filter_microservice
       - FILTER_PORT=8000
-    env_file:
-      - .env
     depends_on:
       database:
         condition: service_healthy
