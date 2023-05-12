@@ -26,7 +26,8 @@ def notify_service(url, worker_id):
                     'station_to': task.variables['station_to'].value,
                     'customer_email': task.variables['customer_email'].value,
                     'route_id': task.variables['route_id'].value
-                    , 'applied_discount': task.variables['applied_discount'].value
+                    , 'applied_discount': task.variables['applied_discount'].value,
+                    'success': str(task.variables['success'].value)
 
                 }
 
